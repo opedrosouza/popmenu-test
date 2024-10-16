@@ -24,3 +24,9 @@ Content-Type: application/json
 
 ### Delete a menu
 DELETE http://localhost:3000/menus/1
+
+### List all menu items
+GET http://localhost:3000/menus/1/menu_items
+
+### Show a menu item
+GET http://localhost:3000/menus/1/menu_items/1
