@@ -1,0 +1,26 @@
+### List all menus
+GET http://localhost:3000/menus
+
+### Show a menu
+GET http://localhost:3000/menus/1
+
+### Create a menu
+POST http://localhost:3000/menus
+Content-Type: application/json
+
+{
+  "name": "Breakfest",
+  "description": "Breakfest menu"
+}
+
+### Update a menu
+PUT http://localhost:3000/menus/1
+Content-Type: application/json
+
+{
+  "name": "Menu 1 updated",
+  "description": "Menu 1 description updated"
+}
+
+### Delete a menu
+DELETE http://localhost:3000/menus/1
