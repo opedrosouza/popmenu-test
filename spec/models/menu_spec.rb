@@ -7,7 +7,7 @@
 #  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  restaurant_id :integer
+#  restaurant_id :integer          not null
 #
 # Indexes
 #
@@ -22,7 +22,7 @@ require 'rails_helper'
 RSpec.describe Menu, type: :model do
   describe 'associations' do
     it { should have_many(:menu_items).dependent(:destroy).inverse_of(:menu) }
-    it { should belong_to(:restaurant).optional }
+    it { should belong_to(:restaurant) }
   end
 
   describe 'validations' do

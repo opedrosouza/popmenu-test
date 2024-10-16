@@ -7,7 +7,7 @@
 #  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  restaurant_id :integer
+#  restaurant_id :integer          not null
 #
 # Indexes
 #

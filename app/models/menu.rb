@@ -7,7 +7,7 @@
 #  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  restaurant_id :integer
+#  restaurant_id :integer          not null
 #
 # Indexes
 #
@@ -18,7 +18,7 @@
 #  restaurant_id  (restaurant_id => restaurants.id)
 #
 class Menu < ApplicationRecord
-  belongs_to :restaurant, optional: true, inverse_of: :menus
+  belongs_to :restaurant, inverse_of: :menus
   has_many :menu_items, dependent: :destroy, inverse_of: :menu
 
   validates :name, presence: true
