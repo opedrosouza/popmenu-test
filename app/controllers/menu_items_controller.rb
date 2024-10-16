@@ -1,4 +1,7 @@
 class MenuItemsController < ApplicationController
+  before_action :menu
+  before_action :menu_item, only: :show
+
   def index
     render json: menu.menu_items
   end

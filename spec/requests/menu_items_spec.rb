@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "MenuItemsController", type: :request do
-  let!(:menu) { create(:menu, :with_menu_items) }
+  let!(:restaurant) { create(:restaurant) }
+  let!(:menu) { create(:menu, :with_menu_items, restaurant:) }
   let!(:other_menu) { create(:menu, :with_menu_items) }
 
-  describe "GET /menus/:menu_id/menu_items" do
-    before { get menu_menu_items_path(menu) }
+  describe "GET /restaurants/:restaurant_id/menus/:menu_id/menu_items" do
+    before { get restaurant_menu_menu_items_path(restaurant, menu) }
     let(:serialized_menu_items) { menu.menu_items.map { |menu_item| MenuItemSerializer.new(menu_item).as_json } }
 
     it "returns http success" do
@@ -27,7 +28,7 @@ RSpec.describe "MenuItemsController", type: :request do
     end
 
     context "when the menu does not exist" do
-      before { get menu_menu_items_path(menu_id: 999) }
+      before { get restaurant_menu_menu_items_path(restaurant, menu_id: 999) }
 
       it "returns http not found" do
         expect(response).to have_http_status(:not_found)
@@ -35,10 +36,10 @@ RSpec.describe "MenuItemsController", type: :request do
     end
   end
 
-  describe "GET /menus/:menu_id/menu_items/:id" do
+  describe "GET /restaurants/:restaurant_id/menus/:menu_id/menu_items/:id" do
     context "when the menu item exists" do
       let(:menu_item) { menu.menu_items.first }
-      before { get menu_menu_item_path(menu, menu_item) }
+      before { get restaurant_menu_menu_item_path(restaurant, menu, menu_item) }
 
       it "returns http success" do
         expect(response).to have_http_status(:success)
@@ -50,7 +51,7 @@ RSpec.describe "MenuItemsController", type: :request do
     end
 
     context "when the menu item does not exist" do
-      before { get menu_menu_item_path(menu, id: 999) }
+      before { get restaurant_menu_menu_item_path(restaurant, menu, id: 999) }
 
       it "returns http not found" do
         expect(response).to have_http_status(:not_found)

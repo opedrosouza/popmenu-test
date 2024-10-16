@@ -1,6 +1,9 @@
 class MenusController < ApplicationController
+  before_action :restaurant
+  before_action :menu, only: %i[show update destroy]
+
   def index
-    @menus = Menu.all.includes(:menu_items).order(:name)
+    @menus = restaurant.menus.includes(:menu_items).order(:name)
     render json: @menus
   end
 
@@ -9,7 +12,7 @@ class MenusController < ApplicationController
   end
 
   def create
-    @menu = Menu.new(menu_params)
+    @menu = restaurant.menus.new(menu_params)
 
     if @menu.save
       render json: @menu, status: :created
@@ -33,7 +36,11 @@ class MenusController < ApplicationController
   private
 
   def menu
-    @menu ||= Menu.find(params[:id])
+    @menu ||= restaurant.menus.find(params[:id])
+  end
+
+  def restaurant
+    @restaurant ||= Restaurant.find(params[:restaurant_id])
   end
 
   def menu_params
